@@ -23,7 +23,7 @@ endif()
 # copy assets/ into bin/ to remove dependencies and weird paths in code
 add_custom_target(copy_assets ALL
    COMMAND ${CMAKE_COMMAND} -E copy_directory
-   ${CMAKE_SOURCE_DIR}/assets ${CMAKE_SOURCE_DIR}/build/assets
+   "${CMAKE_SOURCE_DIR}/assets" "$<TARGET_FILE_DIR:${PROJECT_NAME}>/assets"
    COMMENT "Copying assets to output directory"
 )
 add_dependencies(${PROJECT_NAME} copy_assets)
