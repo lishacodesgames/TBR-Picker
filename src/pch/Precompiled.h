@@ -1,4 +1,3 @@
-#pragma once
 // ===================================
 // 1. STANDARD TEMPLATE LIBRARY (STL)
 // ===================================
@@ -7,14 +6,17 @@
 #include <typeinfo>
 #include <stdarg.h>
 #include <cstdint>
+#include <cstddef>
 #include <utility>
 #include <memory>
 #include <tuple>
+#include <new>
 
 // Functional & Logic
 #include <functional>
 #include <algorithm>
 #include <optional>
+#include <variant>
 #include <ranges>
 
 // Data Containers
@@ -23,39 +25,25 @@
 #include <string>
 #include <vector>
 #include <array>
+#include <set>
 
 // Streams & I/O
 #include <fstream>
 #include <sstream>
 #include <format>
 #include <cstdio>
+#include <cassert>
 
-// raylib uses printf which must not mix with std::cout
-// #include <iostream> 
-// #include <iomanip>
+#include <iostream> 
+#include <iomanip>
+#include <print>
 
 // System, Time & Concurrency
 #include <source_location>
 #include <filesystem>
 #include <stdexcept>
+#include <expected>
 #include <chrono>
 #include <random>
 #include <thread>
 #include <ctime>
-
-// ====================================
-// 2. THIRD-PARTY / EXTERNAL LIBRARIES
-// ====================================
-
-#include <raylib.h>
-#include <raymath.h>
-
-// ========================
-// 3. INTERNAL ENGINE CORE
-// ========================
-
-#include "Core/Logging.h" 
-
-#include "Core/Event.h"
-#include "Core/Layer.h"
-#include "Core/LayerStack.h"

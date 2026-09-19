@@ -1,31 +1,15 @@
 // optional but if using vscode, useful for organisation
 {
-	"folders": [
-		{ "path": ".", "name": "repo" },
-		{ "path": "App" },
-		{ "path": "lib" }
-	],
+   "folders": [
+      { "path": ".", "name": "" }
+   ],
 
-	"settings": {
-		"cmake.sourceDirectory": "${workspaceFolder:repo}",
-		"terminal.integrated.cwd": "${workspaceFolder:repo}",
+   "settings": {
+      "cmake.sourceDirectory": "${workspaceFolder}",
+      "terminal.integrated.cwd": "${workspaceFolder}",
+   },
 
-		"search.exclude": {
-			"**/build/**": true,
-			"**/bin/**": true,
-			"**/obj/**": true,
-			"**/raylib/**": true
-		},
-		"files.exclude": {
-			"App": true,
-			"lib": true
-		},
-		"C_Cpp.files.exclude": {
-			"**/raylib/**": true
-		}
-	},
-
-	"launch": {
+   "launch": {
       "version": "0.2.0",
       "configurations": [
          {
@@ -33,15 +17,14 @@
             "type": "lldb",
             "request": "launch",
             "program": "${command:cmake.launchTargetPath}",
-            "args": ["foundry/gold.aura"],
-            "cwd": "${workspaceFolder:repo}",
+            "cwd": "${workspaceFolder}",
             "preLaunchTask": "CMake: build",
             "console": "internalConsole",
             "expressions": "native",
 
             // to print a string with pretty formatting (no \t \n etc, run this cmd in debug console):
-            // expr (void)printf("%s\n", m_output.c_str())
-            // m_output can be replaced with any string type variable
+            // expr (void)printf("%s\n", mystr.c_str())
+            // mystr can be replaced with any string type variable
             "initCommands": [
                "settings set target.language c++20" // lldb doesn't support c++23
             ],
