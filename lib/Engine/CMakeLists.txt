@@ -1,0 +1,23 @@
+add_library(Engine STATIC)
+target_sources(Engine PRIVATE
+   # Core
+   Core/Application.cpp
+   Core/Event.cpp
+   Core/Layer.cpp
+   Core/LayerStack.cpp
+   Core/Logging.cpp
+
+   # GUI
+   GUI/Animation.cpp
+   GUI/Button.cpp
+   GUI/ConfirmPanel.cpp
+   GUI/ScrollBar.cpp
+   GUI/Toggle.cpp
+
+   # Utils
+   Utils/Numbers.cpp
+)
+
+target_include_directories(Engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(Engine PUBLIC raylib)
+target_precompile_headers(Engine PUBLIC pch/Precompiled.h)
