@@ -1,8 +1,4 @@
 build/
 bin/
-*.exe
-*.o
-*.obj
-*.dll
-.vscode/
+assets/*.csv
 .DS_Store
