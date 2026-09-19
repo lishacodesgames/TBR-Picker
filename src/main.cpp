@@ -16,31 +16,24 @@ struct Book {
    std::uint32_t readCount;
 
    void print() const noexcept {
-      std::cout <<
-      "ID: " << id << "\n" <<
-      "Title: " << title << "\n" <<
-      "Authors: ";
+      std::println("ID: {}", id);
+      std::println("Title: {}", title);
+      std::println("Authors: {}", authors);
 
-      for(const std::string& author : authors)
-         std::cout << author << ", ";
-      std::cout << "\b\b\n";
-
-      std::cout <<
-      "My Rating: " << myRating << "\n" <<
-      "Pages: " << pages << "\n" <<
-      "Year Published: " << year << "\n" <<
-      "Date Added: " << static_cast<int>(dateAdded.year()) << "/" << static_cast<unsigned>(dateAdded.month()) << "/" << static_cast<unsigned>(dateAdded.day()) << "\n" <<
-      "Shelves: ";
-
-      for(const std::string& shelf : shelves)
-         std::cout << shelf << ", ";
-      std::cout << "\b\b\n";
-
-      std::cout <<
-      "Exclusive Shelf: " << exclusiveShelf << "\n" <<
-      "Read Count: " << readCount << "\n";
+      std::println("My Rating: {}", myRating);
+      std::println("Pages: {}", pages);
+      std::println("Year Published: {}", year);
+      std::println("Date Added: {}", dateAdded);
+      std::println("Shelves: {}", shelves);
+      std::println("Exclusive Shelf: {}", exclusiveShelf);
+      std::println("Read Count: {}", readCount);
    }
 };
+
+void printTitle() {
+   std::print("\033[2J\033[H");
+   std::println("----------------------- TBR PICKER -----------------------");
+}
 
 std::vector<std::string> getAuthors(const CSVRow& row) {
    std::vector<std::string> authors = { row["Author"].get<std::string>() };
@@ -86,6 +79,7 @@ std::vector<std::string> getBookshelves(const CSVRow& row) {
 }
 
 int main() {
+   std::println("Loading your library...");
    CSVReader reader("assets/goodreads_library_export.csv");
    std::vector<Book> library{};
 
@@ -114,14 +108,80 @@ int main() {
       library.push_back(std::move(book));
    }
 
-   std::cout << "Your library has " << library.size() << " books.\n\n";
-   for(size_t i = 0; i < library.size(); i++) {
-      library[i].print();
-      std::string c;
-      std::getline(std::cin, c);
-      if(c == "q")
+   printTitle();
+   std::println("Library loaded successfully!");
+   
+   while(true) {
+      std::println("0. Quit");
+      std::println("1. Pick a random book");
+      std::println("2. See my library");
+      std::print("What would you like to do? ");
+
+      std::string ans;
+      std::getline(std::cin, ans);
+      std::transform(ans.begin(), ans.end(), ans.begin(), [](unsigned char c) { return std::tolower(c); }); // lowercase string
+      
+      if(ans == "0" || ans == "q" || ans == "quit") {
+         printTitle();
+         std::println("Goodbye!");
          break;
 
-      std::cout << "\n-----------------------------------------\n";
+      } else if(ans == "1" || ans == "pick" || ans == "random book" || ans == "random") {
+         bool pick = true;
+         while(pick) {
+            printTitle();
+            std::println("Picking a random book...");
+   
+            srand(time(0));
+            int index = rand() % library.size();
+   
+         pick_menu: // sue me for using labels
+            std::println("\nBook chosen! Your next read is:\n");
+            library[index].print();
+            std::println("\n-----------------------------------------");
+
+            std::println("0. Thanks. I'm gonna read this.");
+            std::println("1. I hate this. Give me another.");
+            std::print("Hmmm? ");
+            std::getline(std::cin, ans);
+            std::transform(ans.begin(), ans.end(), ans.begin(), [](unsigned char c) { return std::tolower(c); }); // lowercase string
+
+            if(ans == "0") {
+               printTitle();
+               std::println("Glad you liked it!\n");
+               pick = false;
+               break;
+
+            } else if(ans == "1") {
+               continue;
+
+            } else {
+               printTitle();
+               std::println("'{}' is not a valid choice.\n", ans);
+               goto pick_menu;
+            }
+         }
+
+      } else if(ans == "2" || ans == "see" || ans == "lib" || ans == "library") {
+         printTitle();
+         std::println("Your library has {} books.\n", library.size());
+
+         for(size_t i = 0; i < library.size(); i++) {
+            library[i].print();
+            std::string c;
+            std::getline(std::cin, c);
+            if(c == "q")
+               break;
+
+            std::println("\n-----------------------------------------");
+         }
+
+         printTitle();
+
+      } else {
+         printTitle();
+         std::println("'{}' is not a valid choice.\n", ans);
+         continue;
+      }
    }
 }
