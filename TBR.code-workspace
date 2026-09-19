@@ -72,5 +72,10 @@
             "problemMatcher": [],
          }
       ]
+   },
+   "extensions": {
+      "recommendations": [
+         "repreng.csv"
+      ]
    }
 }

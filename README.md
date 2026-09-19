@@ -1,28 +1,23 @@
-# Raylib Modular Template
-Modular game template using raylib as a git submodule and CMake. <br>
-This repository is intended to be used as a starting point for a new raylib project.
-
-This library-based system is for those who want a distinct separation between the core app, external libraries, and gui code. <br>
-This can be used as-is (like I do) or any subdirectories can be added or removed as needed
-
-*I also have a simpler, non-lib-based, template: [check it out](https://github.com/lishacodesgames/Raylib-Template)*
+# TBR Picker
+A simple app that helps you pick a book to read from your goodreads TBR
 
 ## How to use
+Clone, upload your github csv to `assets/`, then build and run.
 
 ### Clone
-`git clone --recursive` to get the raylib submodule local
+`git clone --recursive https://github.com/lishacodesgames/TBR-Picker.git`
 
-**If you forgot, do:** <br>
+**If you forgot to use the recursive flag, run (after regular clone):** <br>
 `git submodule update --init --recursive` after regular `git clone`
 
 ### Build & Run
 ```bash
 mkdir build
 cd build
-cmake --preset Debug    # or: cmake --preset Release
-cmake --build --preset Debug    # or: cmake --build --preset Release
+cmake --preset Release -Wno-author
+cmake --build --preset Release
 
-./bin/<preset>/MyGame
+./bin/Release/TBR
 ```
 **Note:** <br> 
 - for Windows, omit the `./` and add `.exe` at the end
@@ -30,30 +25,6 @@ cmake --build --preset Debug    # or: cmake --build --preset Release
 - Make sure you have cmake and ninja in your path variables
 
 *Check out [CMakePresets.json](CMakePresets.json) if you're confused* <br>
-
-## Project Structure
-What your project architecture should ideally look like for the CMakeLists.txt I've included (Can change accordingly, otherwise)
-```
-‖
-‖——.git*
-‖——CMakeLists.txt
-‖——CMakePresets.json
-‖——App/
-‖  ‖——CMakeLists.txt
-‖  ‖——include/
-‖     ‖——*.h    → all *your* header files
-‖  ‖——src/
-‖     ‖——main.cpp
-‖     ‖——*.cpp  → all *your* source files
-‖
-‖——lib/
-‖  ‖——raylib/   → raylib submodule
-‖  ‖——Engine/   → my own (extremely simple) implementation
-‖     ‖——GUI/   → raylib GUI stuff that's not native to your app
-‖     ‖——Core/  → veryy simple Layering and Logging system
-```
-
-I would love some feedback and suggestions for the Engine!
 
 ### Linux Dependencies
 Raylib requires a lot of libraries that are built-in on Mac and Windows. <br>
